@@ -8,16 +8,19 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
     "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:cov": "jest --config jest.config.ts --coverage",
+    "test:e2e": "jest --config ./test/jest-e2e.json --runInBand",
+    "docs:delete-old-files": "node scripts/clean-dir.mjs docs",
+    "docs:openapi": "ts-node -r tsconfig-paths/register scripts/main-swagger-export.ts",
+    "docs:erd:per-module": "node scripts/generate-erd-per-module.mjs",
+    "docs:readmes": "node scripts/generate-module-readmes.mjs",
+    "docs:pdf": "node scripts/generate-pdf-from-readme-md.mjs",
+    "docs:generate": "pnpm docs:openapi && pnpm docs:erd:per-module && pnpm docs:readmes",
+    "compo-doc:delete-old-files": "node scripts/clean-dir.mjs documentation",
+    "compo-doc": "pnpm compo-doc:delete-old-files && compodoc -c compodoc.json",
+    "all-doc": "pnpm docs:delete-old-files && pnpm docs:openapi && pnpm docs:erd:per-module && pnpm docs:generate && pnpm docs:pdf && pnpm compo-doc"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
