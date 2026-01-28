@@ -12,11 +12,15 @@
 - ConfigService 
 - Interceptors migrieren
 
+> Kommentar: Am Ende habe ich 0.75h gebraucht da ich vieles vom vorigen Projekt übernehmen konnte.
+
 ### Modules Konfigurieren und erstellen, Datenbankverbindung - **1h**
 - SQLite Datenbankverbindung mit TypeORM konfigurieren
 - Todo Modul ressourcen erstellen (Entity, DTOs, Service, Controller, Module)
 - Todo Entity erstellen und dto definieren
 - Seed Daten erstellen (2 User und 4 Todos)
+
+> Am Ende habe ich 1h gebraucht.
 
 ### Implementierung der Todo Funktionalitäten - **2h**
 - Auth Modul anpassen wenn nötig
