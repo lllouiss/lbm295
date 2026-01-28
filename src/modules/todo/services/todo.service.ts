@@ -167,6 +167,7 @@ export class TodoService {
 
   async update(
     corrId: number,
+    isAdmin: boolean,
     userId: number,
     id: number,
     updateTodoDto: UpdateTodoDto,
@@ -183,10 +184,13 @@ export class TodoService {
       this.logger.debug(`${corrId} ${this.update.name} id: ${id} not found`);
       throw new NotFoundException(`Todo ${id} not found`);
     }
-    if (existingEntity.createdById !== userId) {
+    if (existingEntity.createdById !== userId && !isAdmin) {
       throw new ForbiddenException(
         'The user is not authorized to access this resource',
       );
+    }
+    if (updateTodoDto.isClosed === false && !isAdmin) {
+      throw new ForbiddenException('Opening todos is not allowed');
     }
     const updatedEntity = await this.repo.save({
       ...existingEntity,
@@ -197,7 +201,7 @@ export class TodoService {
     return this.entityToDto(corrId, updatedEntity);
   }
 
-  async remove(corrId: number, isAdmin: boolean, id: number) {
+  async remove(corrId: number, isAdmin: boolean, userId: number, id: number) {
     this.logger.verbose(`${corrId} ${this.remove.name} id: ${id}`);
     const existing = await this.repo.findOneBy({ id });
     if (!existing) {
@@ -209,10 +213,15 @@ export class TodoService {
         'The user is not authorized to access this resource',
       );
     }
-    const deleted = await this.repo.remove(existing);
+    const replaced = await this.repo.save({
+      ...existing,
+      updatedById: userId,
+      id,
+    });
+    const deleted = await this.repo.remove(replaced);
     this.logger.verbose(
       `${corrId} ${this.remove.name} id: ${id} deleted: ${JSON.stringify(deleted, null, 2)}`,
     );
-    return this.entityToDto(corrId, existing);
+    return this.entityToDto(corrId, replaced);
   }
 }
