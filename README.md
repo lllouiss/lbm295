@@ -56,8 +56,16 @@
 - Tests ausführen und sicherstellen, dass alles funktioniert
 - README Datei aktualisieren
 
+---
+
 ## Fazit
 
 Insgesamt habe ich für dieses Projekt etwa 7.75 Stunden benötigt. 
 Einige Aufgaben dauerten länger als erwartet, während andere schneller erledigt waren. Am besten lief die Implementierung der Todo Funktionalitäten, während die Konfiguration des Projekts und die Testing-Phase etwas mehr Zeit in Anspruch nahmen als ursprünglich geplant.
 Insgesamt bin ich mit dem Ergebnis zufrieden und habe wertvolle Erfahrungen im Umgang mit NestJS und der Implementierung von RESTful APIs gesammelt.
+
+---
+
+## Zusätzliche Features (Optional)
+
+Zusätzlich habe ich noch den App Logger konfiguriert, um so gewisse Logs auszublenden. Das Ganze kann über die Environment Variable `APP_LOGGER` gesteuert werden.

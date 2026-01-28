@@ -8,9 +8,15 @@ import { globalPrefix, swaggerInfo, version } from './informations';
 
 async function bootstrap() {
   // Wir erstellen die NestJS-Anwendung basierend auf dem App-Modul.
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn'],
+  });
 
   const configService = app.get(ConfigService);
+  const logSettings = configService.get<string>('APP_LOGGER');
+  const parseLogArray: string[] = (logSettings ?? '["error"]').split(',');
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  app.useLogger(parseLogArray as any);
 
   // Wir lesen den Port aus den Umgebungsvariablen aus, standardmäßig verwenden wir Port 3000.
   const port = configService.get<number>('PORT') || 3000;
