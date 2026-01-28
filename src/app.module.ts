@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AuthModule } from './modules/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { TodoModule } from './modules/todo/todo.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ConfigModule } from '@nestjs/config';
       database: process.env.DB_NAME || 'todo/myApp.db',
     }),
     AuthModule,
+    TodoModule,
   ],
 })
 export class AppModule {}
