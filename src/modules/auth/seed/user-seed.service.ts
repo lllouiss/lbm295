@@ -89,7 +89,7 @@ export class UserSeedService implements OnApplicationBootstrap {
       {
         id,
         username: username.toLowerCase(),
-        email: `${username}@local.ch`.toLowerCase(),
+        email: `${username}@local.test`.toLowerCase(),
         isAdmin: isAdmin,
         passwordHash: await this.passwordService.hashPassword(0, password),
         createdById: 0,
